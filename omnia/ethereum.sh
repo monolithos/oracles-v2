@@ -56,3 +56,22 @@ pushOraclePrice () {
     echo SUCCESS: "$(timeout -s9 60 seth --rpc-url "$ETH_RPC_URL" receipt "$tx" status)"
     echo GAS USED: "$(timeout -s9 10 seth --rpc-url "$ETH_RPC_URL" receipt "$tx" gasUsed)"
 }
+
+megaPoke () {
+  _megaPokerContract=$(getMegaPokerContract)
+
+  if ! [[ "$_megaPokerContract" =~ ^(0x){1}[0-9a-fA-F]{40}$ ]]; then
+    error "Error - Invalid MegaPoker contract"
+    return 1
+  fi
+
+  log "make mega poke"
+  log "Sending tx..."
+
+  tx=$(seth --rpc-url "$ETH_RPC_URL" --gas 500000 send --async "$_megaPokerContract" 'poke()')
+
+  echo "TX: $tx"
+  echo SUCCESS: "$(timeout -s9 60 seth --rpc-url "$ETH_RPC_URL" receipt "$tx" status)"
+  echo GAS USED: "$(timeout -s9 10 seth --rpc-url "$ETH_RPC_URL" receipt "$tx" gasUsed)"
+}
+

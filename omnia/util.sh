@@ -89,3 +89,8 @@ getOracleSpread () {
 	[[ "$OMNIA_MODE" == "RELAYER" ]] && _oracleSpread=$(cut -d ',' -f4 <<<"${assetInfo[$_assetPair]}")
 	echo "$_oracleSpread"
 }
+
+getMegaPokerContract () {
+  [[ $OMNIA_MODE == "RELAYER" ]] && mega_poker_address=$MEGA_POKER
+  echo "$mega_poker_address"
+}

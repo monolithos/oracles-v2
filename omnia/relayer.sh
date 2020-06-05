@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 updateOracle () {
+    local is_price_changed="false"
     for assetPair in "${assetPairs[@]}"; do
         local _quorum
         local _prices
@@ -34,8 +35,12 @@ updateOracle () {
             verbose "sorted messages = ${_sortedEntries[*]}"
             generateCalldata "${_sortedEntries[@]}"
             pushOraclePrice "$assetPair"
+	    is_price_changed="true"
         fi
     done
+    if [[ "$is_price_changed" == "true" ]]; then
+      megaPoke
+    fi
 }
 
 #pulls latest price of an asset from each feed
