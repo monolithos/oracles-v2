@@ -34,7 +34,7 @@ rec {
 
   setzer-mcd = fetchGit {
     url = "https://github.com/captain13128/setzer-mcd";
-    rev = "e5ca0b0760e0ba7b1a60fb413cba2cc79c2fe4a5";
+    rev = "19e4f847552742711028737afb50683cc7f32a0c";
     ref = "master";
   };
 
